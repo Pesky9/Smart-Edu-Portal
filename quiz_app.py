@@ -6,7 +6,7 @@ import os
 import random
 from openpyxl import Workbook, load_workbook
 from openpyxl.worksheet.datavalidation import DataValidation
-
+from PIL import Image, ImageTk  
 cor_wron = []
 quiz_score = {}
 score = 0
@@ -396,28 +396,48 @@ def admin_log():
             else:
                 messagebox.showerror("Error", "Incorrect username or password!")
                 admin_log()
-    log.withdraw()
-    up = Toplevel()
+    
+    up = Tk()
     up.title('Sign Up')
-    up.resizable(0, 0)
-    up.configure(bg="#f8f8f8")
-    head = Label(up, text='PROJECT QUIZ', font=('HELVETICA', 21, 'bold'), bg="#f8f8f8")
-    head.grid(row=0, column=0, padx=10, pady=10, columnspan=2)
-    u_lbl = Label(up, text='Username', font=("ARIAL", 12), bg="#f8f8f8")
-    u_lbl.grid(row=3, column=0, padx=10, pady=10)
-    username1 = Entry(up, width=20, font=("ARIAL", 12))
-    username1.grid(row=3, column=1, pady=10, padx=(0, 40))
-    pa_lbl = Label(up, text='Password', font=("ARIAL", 12), bg="#f8f8f8")
-    pa_lbl.grid(row=4, column=0, padx=10, pady=10)
-    password1 = Entry(up, width=20, show='*', font=("ARIAL", 12))
-    password1.grid(row=4, column=1, pady=10, padx=(0, 40))
-    signup_btn = Button(up, text='Login', font=('HELVETICA', 16), width=12, bd=4, relief=RAISED, command=signup_db)
-    signup_btn.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
-    dont = Label(up, text="Not an admin?", font=("HELVETICA", 12), bg="#f8f8f8")
-    dont.grid(row=6, column=0, columnspan=2, padx=(0, 100))
-    login_btn = Button(up, text='Login as user', bd=3, relief=RAISED, width=10, font=("HELVETICA", 12),
-                       command=log_back)
-    login_btn.grid(row=6, column=1, padx=(90, 0), pady=10)
+    up.geometry("600x450")  # Set width and height of the window
+    up.resizable(0, 0)  # Disable window resizing
+    up.configure(bg="#e6f2ff")  # Light blue background color
+
+# Create a frame for better layout
+    frame = Frame(up, bg="#ffffff", padx=20, pady=20, relief=RAISED, bd=5)
+    frame.pack(pady=20)
+
+# Header label
+    head = Label(frame, text='PROJECT QUIZ', font=('Helvetica', 21, 'bold'), bg="#ffffff", fg="#003366")
+    head.grid(row=0, column=0, columnspan=2, pady=10)
+
+# Username label and entry
+    u_lbl = Label(frame, text='Username:', font=("Arial", 12, 'bold'), bg="#ffffff", fg="#333333")
+    u_lbl.grid(row=1, column=0, sticky="w", pady=5)
+    username1 = Entry(frame, width=25, font=("Arial", 12))
+    username1.grid(row=1, column=1, pady=5)
+
+# Password label and entry
+    pa_lbl = Label(frame, text='Password:', font=("Arial", 12, 'bold'), bg="#ffffff", fg="#333333")
+    pa_lbl.grid(row=2, column=0, sticky="w", pady=5)
+    password1 = Entry(frame, width=25, show='*', font=("Arial", 12))
+    password1.grid(row=2, column=1, pady=5)
+
+# Sign-up button
+    signup_btn = Button(frame, text='Sign Up', font=('Helvetica', 14, 'bold'), width=15, bg="#008CBA", fg="white",
+                    bd=3, relief=RAISED, command=lambda: print("Sign up clicked"))
+    signup_btn.grid(row=3, column=0, columnspan=2, pady=10)
+
+# "Not an admin?" label
+    dont = Label(frame, text="Not an admin?", font=("Helvetica", 12, 'italic'), bg="#ffffff", fg="#555555")
+    dont.grid(row=4, column=0, columnspan=2, pady=5)
+
+# Login as user button
+    login_btn = Button(frame, text='Login as User', font=("Helvetica", 12, 'bold'), width=12, bg="#4CAF50", fg="white",
+                   bd=3, relief=RAISED, command=lambda: print("Login as user clicked"))
+    login_btn.grid(row=5, column=0, columnspan=2, pady=5)
+
+# Run the application
     up.mainloop()
 
 
@@ -474,7 +494,15 @@ def signup():
     dont.grid(row=6, column=0, columnspan=2, padx=(0, 100))
     login_btn = Button(up, text='Login', bd=3, relief=RAISED, width=10, font=("HELVETICA", 12), command=log_back)
     login_btn.grid(row=6, column=1, padx=(90, 0), pady=10)
+
+    log.withdraw()
+    up = Toplevel()
+    up.title('Admin Login')
+    up.resizable(0, 0)
+    up.configure(bg="#f8f8f8")
     up.mainloop()
+
+  
 
 def home():
     def logout():
@@ -690,35 +718,112 @@ def home():
     play_btn.grid(row=2, column=0, padx=(10, 30), pady=(10, 30))
     home_w.mainloop()
 
+from tkinter import Tk, Label, Entry, Button, Frame
+from PIL import Image, ImageTk, ImageDraw  
+
+# Create the main window
 log = Tk()
-log.resizable(0, 0)
 log.title('Login Page')
-log.configure(bg="#f8f8f8")
-w = 400
-h = 400
-ws = log.winfo_screenwidth()
-hs = log.winfo_screenheight()
-x = (ws/2) - (w/2)
-y = (hs/2) - (h/2)
-log.geometry('%dx%d+%d+%d' % (w, h, x, y))
-heading = Label(log, text='PROJECT QUIZ', font=("HELVETICA", 20, 'bold'), bg="#f8f8f8")
-heading.grid(row=0, column=0, padx=90, pady=20)
-username_lbl = Label(log, text='Username', font=("HELVETICA", 14), bg="#f8f8f8")
-username_lbl.grid(row=1, column=0, padx=45, pady=10)
-username = Entry(log, width=20, font=("ARIAL", 12))
-username.grid(row=2, column=0, padx=45, pady=(0, 10))
-password_lbl = Label(log, text='Password', font=("HELVETICA", 14), bg="#f8f8f8")
-password_lbl.grid(row=3, column=0, padx=45, pady=10)
-password = Entry(log, width=20, show="*", font=("ARIAL", 12))
-password.grid(row=4, column=0, padx=45, pady=(0, 10))
-login_btn = Button(log, text='Login', bd=3, relief=RAISED, width=10, font=("HELVETICA", 14), command=login)
-login_btn.grid(row=5, column=0, padx=10, pady=(20, 20))
-dont = Label(log, text="Don't have an account?", font=("HELVETICA", 12), bg="#f8f8f8")
-dont.grid(row=6, column=0, padx=(0, 130))
-signup_btn = Button(log, text='Signup', bd=3, relief=RAISED, width=10, font=("HELVETICA", 12), command=signup)
-signup_btn.grid(row=6, column=0, padx=(150, 0), pady=10)
-admin = Label(log, text="Are you an Admin?", font=("HELVETICA", 12), bg="#f8f8f8")
-admin.grid(row=7, column=0, padx=(0, 130))
-admin_btn = Button(log, text='Admin Login', bd=3, relief=RAISED, width=10, font=("HELVETICA", 12), command=admin_log)
-admin_btn.grid(row=7, column=0, padx=(150, 0), pady=10)
+
+# Set window size and align it toward the right
+w, h = 650, 750  
+ws, hs = log.winfo_screenwidth(), log.winfo_screenheight()
+x, y = ws - w - 50, (hs - h) // 2  
+log.geometry(f"{w}x{h}+{x}+{y}")
+log.resizable(True, True)
+log.configure(bg="#E5D9F2")  
+
+# Create the form frame
+frame = Frame(log, bg="white", padx=50, pady=50, relief="raised", bd=5)
+frame.pack(pady=50)
+
+# **Load and Convert Logo Image into a Circle**
+def get_circular_image(image_path, size=(160, 160)):  
+    try:
+        img = Image.open(image_path).convert("RGBA")  
+        img = img.resize(size, Image.Resampling.LANCZOS)  
+
+        # Create a circular mask
+        mask = Image.new("L", size, 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0) + size, fill=255)
+
+        # Apply the mask to the image
+        circular_img = Image.new("RGBA", size, (0, 0, 0, 0))
+        circular_img.paste(img, (0, 0), mask)
+
+        return ImageTk.PhotoImage(circular_img)  
+
+    except Exception as e:
+        print("Error loading image:", e)
+        return None
+
+# Load the circular logo
+logo_photo = get_circular_image("education.png")  
+if logo_photo:
+    logo_label = Label(frame, image=logo_photo, bg="white")
+    logo_label.grid(row=0, column=0, columnspan=2, pady=10)
+
+# **Header Label**
+heading = Label(frame, text='PROJECT QUIZ', font=("Georgia", 24, 'bold'), bg="white", fg="#003366")
+heading.grid(row=1, column=0, columnspan=2, pady=15)
+
+# **Username Input**
+username_lbl = Label(frame, text='Username:', font=("Arial", 16, 'bold'), bg="white", fg="#333333")
+username_lbl.grid(row=2, column=0, sticky="w", pady=10)
+username = Entry(frame, width=30, font=("Arial", 16), bd=2, relief="solid")
+username.grid(row=2, column=1, pady=10)
+
+# **Password Input**
+password_lbl = Label(frame, text='Password:', font=("Arial", 16, 'bold'), bg="white", fg="#333333")
+password_lbl.grid(row=3, column=0, sticky="w", pady=10)
+password = Entry(frame, width=30, show="*", font=("Arial", 16), bd=2, relief="solid")
+password.grid(row=3, column=1, pady=10)
+
+# **Button Styling**
+def on_enter(event, btn, color):
+    btn.config(bg=color)
+
+def on_leave(event, btn, original_color):
+    btn.config(bg=original_color)
+
+# **Login Button**
+login_btn = Button(frame, text='Login', font=('Arial', 16, 'bold'), width=24, bg="#008CBA", fg="white",
+                   bd=4, relief="raised", command=lambda: print("Login clicked"),
+                   activebackground="#005f7f", activeforeground="white", highlightthickness=0)
+login_btn.grid(row=4, column=0, columnspan=2, pady=20)
+login_btn.bind("<Enter>", lambda e: on_enter(e, login_btn, "#005f7f"))
+login_btn.bind("<Leave>", lambda e: on_leave(e, login_btn, "#008CBA"))
+
+# **Signup & Admin Section**
+btn_frame = Frame(frame, bg="white")
+btn_frame.grid(row=5, column=0, columnspan=2, pady=10)
+
+# "Don't have an account?" Label
+dont_have_label = Label(btn_frame, text="Don't have an account?", font=("Arial", 14), bg="white", fg="black")
+dont_have_label.grid(row=0, column=0, padx=(0, 5), sticky="e")
+
+# **Sign Up Button**
+signup_btn = Button(btn_frame, text='Sign Up', font=("Arial", 14, 'bold'), width=12, bg="#4CAF50", fg="white",
+                    bd=2, relief="raised", command=lambda: print("Signup clicked"),
+                    activebackground="#357a38", activeforeground="white", highlightthickness=0)
+signup_btn.grid(row=0, column=1, padx=(0, 10))
+
+signup_btn.bind("<Enter>", lambda e: on_enter(e, signup_btn, "#357a38"))
+signup_btn.bind("<Leave>", lambda e: on_leave(e, signup_btn, "#4CAF50"))
+
+# "Are you an Admin?" Label
+admin_label = Label(btn_frame, text="Are you an Admin?", font=("Arial", 14), bg="white", fg="black")
+admin_label.grid(row=1, column=0, padx=(0, 5), sticky="e", pady=10)
+
+# **Admin Login Button**
+admin_btn = Button(btn_frame, text='Admin Login', font=("Arial", 14, 'bold'), width=12, bg="#FF5733", fg="white",
+                   bd=2, relief="raised", command=lambda: print("Admin Login clicked"),
+                   activebackground="#a82e1e", activeforeground="white", highlightthickness=0)
+admin_btn.grid(row=1, column=1, padx=(0, 10), pady=10)
+
+admin_btn.bind("<Enter>", lambda e: on_enter(e, admin_btn, "#a82e1e"))
+admin_btn.bind("<Leave>", lambda e: on_leave(e, admin_btn, "#FF5733"))
+
+# Run the application
 log.mainloop()

@@ -1,12 +1,12 @@
 from tkinter import *
-from tkinter import messagebox, ttk,filedialog
+from tkinter import messagebox, ttk,filedialog,Tk, Label, Entry, Button, Frame
 import csv
 import sqlite3
 import os
 import random
 from openpyxl import Workbook, load_workbook
 from openpyxl.worksheet.datavalidation import DataValidation
-from PIL import Image, ImageTk  
+from PIL import Image, ImageTk  ,ImageDraw
 cor_wron = []
 quiz_score = {}
 score = 0
@@ -712,8 +712,7 @@ def home():
     play_btn.grid(row=2, column=0, padx=(10, 30), pady=(10, 30))
     home_w.mainloop()
 
-from tkinter import Tk, Label, Entry, Button, Frame
-from PIL import Image, ImageTk, ImageDraw  
+
 
 # Create the main window
 log = Tk()

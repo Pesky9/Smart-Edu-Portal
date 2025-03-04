@@ -495,13 +495,7 @@ def signup():
     login_btn = Button(up, text='Login', bd=3, relief=RAISED, width=10, font=("HELVETICA", 12), command=log_back)
     login_btn.grid(row=6, column=1, padx=(90, 0), pady=10)
 
-    log.withdraw()
-    up = Toplevel()
-    up.title('Admin Login')
-    up.resizable(0, 0)
-    up.configure(bg="#f8f8f8")
-    up.mainloop()
-
+    
   
 
 def home():
@@ -789,7 +783,7 @@ def on_leave(event, btn, original_color):
 
 # **Login Button**
 login_btn = Button(frame, text='Login', font=('Arial', 16, 'bold'), width=24, bg="#008CBA", fg="white",
-                   bd=4, relief="raised", command=lambda: print("Login clicked"),
+                   bd=4, relief="raised", command=login,
                    activebackground="#005f7f", activeforeground="white", highlightthickness=0)
 login_btn.grid(row=4, column=0, columnspan=2, pady=20)
 login_btn.bind("<Enter>", lambda e: on_enter(e, login_btn, "#005f7f"))
@@ -805,7 +799,7 @@ dont_have_label.grid(row=0, column=0, padx=(0, 5), sticky="e")
 
 # **Sign Up Button**
 signup_btn = Button(btn_frame, text='Sign Up', font=("Arial", 14, 'bold'), width=12, bg="#4CAF50", fg="white",
-                    bd=2, relief="raised", command=lambda: print("Signup clicked"),
+                    bd=2, relief="raised", command=signup,
                     activebackground="#357a38", activeforeground="white", highlightthickness=0)
 signup_btn.grid(row=0, column=1, padx=(0, 10))
 
@@ -818,7 +812,7 @@ admin_label.grid(row=1, column=0, padx=(0, 5), sticky="e", pady=10)
 
 # **Admin Login Button**
 admin_btn = Button(btn_frame, text='Admin Login', font=("Arial", 14, 'bold'), width=12, bg="#FF5733", fg="white",
-                   bd=2, relief="raised", command=lambda: print("Admin Login clicked"),
+                   bd=2, relief="raised", command=admin_log,
                    activebackground="#a82e1e", activeforeground="white", highlightthickness=0)
 admin_btn.grid(row=1, column=1, padx=(0, 10), pady=10)
 

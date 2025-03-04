@@ -718,6 +718,8 @@ from PIL import Image, ImageTk, ImageDraw
 # Create the main window
 log = Tk()
 log.title('Login Page')
+log.attributes('-fullscreen', True)
+
 
 # Set window size and align it toward the right
 w, h = 650, 750  
@@ -780,6 +782,17 @@ def on_enter(event, btn, color):
 
 def on_leave(event, btn, original_color):
     btn.config(bg=original_color)
+def close_app():
+    log.destroy()
+
+# Create a Close Button
+close_btn = Button(log, text="X", font=("Arial", 16, "bold"), bg="red", fg="white",
+                   bd=2, relief="raised", command=close_app,
+                   activebackground="darkred", activeforeground="white", highlightthickness=0)
+close_btn.place(x=log.winfo_screenwidth() - 50, y=10, width=40, height=40)  # Position at the top right
+
+# Escape Key to Close
+log.bind("<Escape>", lambda event: close_app())
 
 # **Login Button**
 login_btn = Button(frame, text='Login', font=('Arial', 16, 'bold'), width=24, bg="#008CBA", fg="white",
